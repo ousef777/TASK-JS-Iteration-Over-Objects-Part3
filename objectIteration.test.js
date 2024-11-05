@@ -20,6 +20,7 @@ describe("City Data Functions", () => {
       { id: 303, name: "Tokyo", population: 13960000, country: "Japan" },
       { id: 304, name: "Sydney", population: 5230330, country: "Australia" },
       { id: 305, name: "Cairo", population: 9121515, country: "Egypt" },
+      { id: 305, name: "Alexandria", population: 5000000, country: "Egypt" },
     ];
   });
 
@@ -46,7 +47,8 @@ describe("City Data Functions", () => {
         population: 1200000,
         country: "Canada",
       };
-      const updatedCities = addCity([...cities], newCity);
+      const { id, name, population, country } = newCity;
+      const updatedCities = addCity([...cities], id, name, population, country);
       expect(updatedCities).toContainEqual(newCity);
       expect(updatedCities.length).toBe(cities.length + 1);
     });
@@ -56,7 +58,9 @@ describe("City Data Functions", () => {
     it("should return the number of cities in the specified country", () => {
       expect(countCitiesInCountry(cities, "France")).toBe(1);
       expect(countCitiesInCountry(cities, "Japan")).toBe(1);
+      expect(countCitiesInCountry(cities, "Egypt")).toBe(2);
     });
+
     it("should return 0 if no cities are found in the specified country", () => {
       expect(countCitiesInCountry(cities, "Germany")).toBe(0);
     });
